@@ -2,18 +2,17 @@ package handler;
 
 import java.io.IOException;
 
-public class LoggingHandler<S> implements Handler<S> {
-    private final Handler<S> other;
+public class LoggingHandler<S> extends DecoratedHandler<S> {
 
     public LoggingHandler(Handler<S> other) {
-        this.other = other;
+        super(other);
     }
 
     @Override
     public void handle(S s) throws IOException {
         System.out.println("Connected with server: " + s);
         try {
-            other.handle(s);
+            super.handle(s);
         } finally {
             System.out.println("Disconnected from server: " + s);
         }
