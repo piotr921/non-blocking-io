@@ -15,6 +15,7 @@ public class TransmorgifyHandler implements Handler<Socket> {
         ) {
             int data;
             while ((data = inputStream.read()) != -1) {
+                if (data == '%') throw new IOException("OOPS!");
                 outputStream.write(transmorgify(data));
             }
         }
